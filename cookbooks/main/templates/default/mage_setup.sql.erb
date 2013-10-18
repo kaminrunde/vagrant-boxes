@@ -1,0 +1,146 @@
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+
+-- Delete UA codes of Live-Domains and deactivate GA
+DELETE FROM `core_config_data` WHERE path='google/analytics/account';
+DELETE FROM `core_config_data` WHERE path='google/analytics/active';
+DELETE FROM `core_config_data` WHERE path='google/analyticsplus/conversionenabled';
+DELETE FROM `core_config_data` WHERE path='google/analyticsplus/conversionid';
+
+
+-- Disable JS/CSS Merging
+UPDATE `core_config_data` SET value=0 WHERE path='dev/css/merge_css_files';
+UPDATE `core_config_data` SET value=0 WHERE path='dev/js/merge_files';
+
+-- SET Generic Test Urls
+UPDATE `core_config_data` SET value='https://magentodev.emmos.local/' WHERE scope='default' AND scope_id=0 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://magentodev.emmos.local/' WHERE scope='default' AND scope_id=0 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='http://devmedia.emmos.local/media/' WHERE scope='default' AND scope_id=0 AND path='web/unsecure/base_media_url';
+UPDATE `core_config_data` SET value='http://devstatic.emmos.local/skin/' WHERE scope='default' AND scope_id=0 AND path='web/unsecure/base_skin_url';
+UPDATE `core_config_data` SET value='web/unsecure/base_js_url' WHERE scope='default' AND scope_id=0 AND path='{{unsecure_base_url}}/js/';
+UPDATE `core_config_data` SET value='web/secure/base_js_url' WHERE scope='default' AND scope_id=0 AND path='{{secure_base_url}}/js/';
+
+-- Disable SSL for Backend
+UPDATE `core_config_data` SET value='0' WHERE scope='default' AND scope_id=0 AND path='web/secure/use_in_adminhtml';
+
+
+-- Delete all Store specific Skin and media paths
+DELETE FROM `core_config_data` WHERE scope <> "default" AND path='web/unsecure/base_media_url';
+DELETE FROM `core_config_data` WHERE scope <> "default" AND path='web/unsecure/base_skin_url';
+
+
+-- -- -- Change ShopURLs
+-- VFA
+UPDATE `core_config_data` SET value='http://devvfa.emmos.local/' WHERE scope='websites' AND scope_id=13 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvfa.emmos.local/' WHERE scope='websites' AND scope_id=13 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devvfa.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=23 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvfa.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=23 AND path='web/secure/base_url';
+
+-- VEGA DACH
+UPDATE `core_config_data` SET value='http://devwga.emmos.local/' WHERE scope='websites' AND scope_id=1 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devwga.emmos.local/' WHERE scope='websites' AND scope_id=1 AND path='web/secure/base_url';
+
+UPDATE `core_config_data` SET value='http://devwgc.emmos.local/' WHERE scope='websites' AND scope_id=5 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devwgc.emmos.local/' WHERE scope='websites' AND scope_id=5 AND path='web/secure/base_url';
+
+UPDATE `core_config_data` SET value='http://devwge.emmos.local/' WHERE scope='websites' AND scope_id=3 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devwge.emmos.local/' WHERE scope='websites' AND scope_id=3 AND path='web/secure/base_url';
+
+
+-- Jobeline DACH
+UPDATE `core_config_data` SET value='https://devjde.emmos.local/' WHERE scope='stores' AND scope_id=13 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devjde.emmos.local/' WHERE scope='stores' AND scope_id=13 AND path='web/unsecure/base_url';
+
+UPDATE `core_config_data` SET value='https://devjch.emmos.local/' WHERE scope='stores' AND scope_id=21 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devjch.emmos.local/' WHERE scope='stores' AND scope_id=21 AND path='web/unsecure/base_url';
+
+UPDATE `core_config_data` SET value='https://devjat.emmos.local/' WHERE scope='stores' AND scope_id=17 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devjat.emmos.local/' WHERE scope='stores' AND scope_id=17 AND path='web/unsecure/base_url';
+
+
+-- Hotelwaesche DACH
+UPDATE `core_config_data` SET value='http://devmgh.emmos.local/' WHERE scope='stores' AND scope_id=11 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='http://devmgh.emmos.local/' WHERE scope='websites' AND scope_id=7 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devmgh.emmos.local/' WHERE scope='stores' AND scope_id=11 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='https://devmgh.emmos.local/' WHERE scope='websites' AND scope_id=7 AND path='web/secure/base_url';
+
+UPDATE `core_config_data` SET value='http://devmge.emmos.local/' WHERE scope='stores' AND scope_id=15 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='http://devmge.emmos.local/' WHERE scope='websites' AND scope_id=9 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devmge.emmos.local/' WHERE scope='stores' AND scope_id=15 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='https://devmge.emmos.local/' WHERE scope='websites' AND scope_id=9 AND path='web/secure/base_url';
+
+UPDATE `core_config_data` SET value='http://devmgc.emmos.local/' WHERE scope='stores' AND scope_id=19 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='http://devmgc.emmos.local/' WHERE scope='websites' AND scope_id=11 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devmgc.emmos.local/' WHERE scope='stores' AND scope_id=19 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='https://devmgc.emmos.local/' WHERE scope='websites' AND scope_id=11 AND path='web/secure/base_url';
+
+-- VES
+UPDATE `core_config_data` SET value='http://devves.emmos.local/' WHERE scope='websites' AND scope_id=21 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devves.emmos.local/' WHERE scope='websites' AND scope_id=21 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devves.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=41 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devves.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=41 AND path='web/secure/base_url';
+
+-- VIT
+UPDATE `core_config_data` SET value='http://devvit.emmos.local/' WHERE scope='websites' AND scope_id=19 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvit.emmos.local/' WHERE scope='websites' AND scope_id=19 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devvit.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=35 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvit.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=35 AND path='web/secure/base_url';
+
+-- VNL
+UPDATE `core_config_data` SET value='http://devvnl.emmos.local/' WHERE scope='websites' AND scope_id=17 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvnl.emmos.local/' WHERE scope='websites' AND scope_id=17 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devvnl.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=31 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvnl.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=31 AND path='web/secure/base_url';
+
+-- VSE
+UPDATE `core_config_data` SET value='http://devvse.emmos.local/' WHERE scope='websites' AND scope_id=15 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvse.emmos.local/' WHERE scope='websites' AND scope_id=15 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devvse.emmos.local/' WHERE scope='stores' AND scope_id=29 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvse.emmos.local/' WHERE scope='stores' AND scope_id=29 AND path='web/secure/base_url';
+UPDATE `core_config_data` SET value='http://devvse.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=27 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devvse.emmos.local/jobeline/' WHERE scope='stores' AND scope_id=27 AND path='web/secure/base_url';
+
+-- PDE
+UPDATE `core_config_data` SET value='http://devpde.emmos.local/' WHERE scope='websites' AND scope_id=27 AND path='web/unsecure/base_url';
+UPDATE `core_config_data` SET value='https://devpde.emmos.local/' WHERE scope='websites' AND scope_id=27 AND path='web/secure/base_url';
+
+-- USE SECURE
+UPDATE `core_config_data` SET value='<%=node['magento']['web_secure_use_in_frontend']%>' WHERE path='web/secure/use_in_frontend';
+
+-- SET PASSWORD EXPIRE
+UPDATE `core_config_data` SET value='<%=node['magento']['admin_security_password_lifetime']%>' WHERE path='admin/security/password_lifetime';
+
+-- Truncate Admin-User Table && Password History
+TRUNCATE `admin_user`;
+TRUNCATE `enterprise_admin_passwords`;
+
+INSERT INTO admin_user
+(`user_id`, `firstname`, `lastname`, `email`, `username`, `password`, `created`, `modified`, `logdate`, `lognum`, `reload_acl_flag`, `is_active`, `extra`)
+(SELECT
+NULL user_id,
+"<%=node['magento']['admin_user']['firstname']%>",
+"<%=node['magento']['admin_user']['lastname']%>",
+"<%=node['magento']['admin_user']['email']%>",
+"<%=node['magento']['admin_user']['username']%>",
+CONCAT(MD5('kr<%=node['magento']['admin_user']['password']%>'), ':kr'),
+NOW(),
+NULL,
+NULL,
+0,
+0,
+1,
+(SELECT MAX(extra) FROM admin_user WHERE extra IS NOT NULL) );
+
+-- INSERT into admin_role
+-- SELECT
+-- NULL role_id,
+-- (SELECT role_id FROM admin_role WHERE role_name = 'Administrators') parent_id,
+-- 2 tree_level,
+-- 0 sort_order,
+-- 'U' role_type,
+-- (SELECT user_id FROM admin_user WHERE username = '<%=node['magento']['admin_user']['username']%>') user_id,
+-- '<%=node['magento']['admin_user']['username']%>' role_name;
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
